@@ -51,7 +51,8 @@ const Hero = () => {
             </a>
             
             <a 
-              href="#" 
+              href="/resume.pdf"  // 1. Matches the file name in public folder
+              download="Purushothama_Resume.pdf" // 2. The name the user sees when downloading
               className="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white font-medium rounded-xl flex items-center gap-2 transition-all border border-slate-700"
             >
               Download CV <Download size={20} />
