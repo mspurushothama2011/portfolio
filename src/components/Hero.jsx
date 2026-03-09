@@ -94,7 +94,7 @@ const Hero = () => {
               <div className="inline-block px-5 py-2 glass-card border-primary-500/30 text-primary-400 text-sm font-semibold rounded-full shadow-[0_0_15px_rgba(236,72,153,0.15)] relative overflow-hidden group">
                 <span className="relative z-10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-primary-400 animate-pulse"></span>
-                  Available for Internship
+                  Open to Work
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-500/10 to-primary-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
               </div>
@@ -107,7 +107,7 @@ const Hero = () => {
                 Building the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">Present</span>
               </h1>
               <h2 className="text-2xl md:text-3xl text-slate-300 font-light">
-                Hi, I'm <span className="font-semibold text-white">Purushothama</span>
+                Hi, I'm <span className="font-semibold text-white">Purushothama M S</span>
               </h2>
             </motion.div>
             

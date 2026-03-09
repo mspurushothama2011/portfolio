@@ -64,23 +64,40 @@ const Contact = () => {
             {/* Form Side */}
             <div className="md:col-span-3">
                 <form className="glass-card p-8 md:p-10 rounded-3xl border border-white/10" onSubmit={(e) => e.preventDefault()}>
-                    <h2 className="text-2xl font-bold font-space text-white mb-8">Send a Message</h2>
+                    <h2 className="text-2xl font-bold font-space text-white mb-6">Send a Message</h2>
+                    
+                    {/* Backend Unavailable Warning Banner */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-8 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-4"
+                    >
+                        <div className="bg-red-500/20 p-2 rounded-lg text-red-400 shrink-0">
+                            <X size={20} />
+                        </div>
+                        <div>
+                            <h4 className="text-red-400 font-bold text-sm mb-1 uppercase tracking-wider">System Notice</h4>
+                            <p className="text-red-300/80 text-sm font-light">The messaging backend is currently unavailable. Please reach out to me directly via the email address listed on the left instead.</p>
+                        </div>
+                    </motion.div>
                     
                     <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-400 pl-1">Your Name</label>
                             <input 
+                                disabled
                                 type="text" 
                                 placeholder="John Doe"
-                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light"
+                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light opacity-50 cursor-not-allowed"
                             />
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-400 pl-1">Your Email</label>
                             <input 
+                                disabled
                                 type="email" 
                                 placeholder="john@example.com"
-                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light"
+                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light opacity-50 cursor-not-allowed"
                             />
                         </div>
                     </div>
@@ -88,30 +105,29 @@ const Contact = () => {
                     <div className="space-y-2 mb-6">
                         <label className="text-sm font-medium text-slate-400 pl-1">Subject</label>
                         <input 
+                            disabled
                             type="text" 
                             placeholder="How can I help you?"
-                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light"
+                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light opacity-50 cursor-not-allowed"
                         />
                     </div>
 
                     <div className="space-y-2 mb-8">
                         <label className="text-sm font-medium text-slate-400 pl-1">Message</label>
                         <textarea 
+                            disabled
                             rows="5"
                             placeholder="Tell me about your project..."
-                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light resize-none"
+                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light resize-none opacity-50 cursor-not-allowed"
                         ></textarea>
                     </div>
 
                     <button 
+                        disabled
                         type="button"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            alert("Contact functionality needs a backend (like EmailJS) to work. Link your email provider here!");
-                        }}
-                        className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 text-white font-medium rounded-xl px-6 py-4 flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary-500/25 active:scale-[0.98]"
+                        className="w-full bg-slate-800 text-slate-500 font-medium rounded-xl px-6 py-4 flex items-center justify-center gap-2 transition-all border border-slate-700 opacity-70 cursor-not-allowed"
                     >
-                        Send Message <Send size={18} />
+                        Backend Unavailable
                     </button>
                 </form>
             </div>

@@ -10,42 +10,57 @@ const Profile = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="page-transition min-h-screen pt-28 pb-12"
+      className="page-transition min-h-screen pb-12"
     >
-      <div className="container mx-auto px-6 relative z-10">
+      
+      {/* Full-Width Profile Hero Section */}
+      <div className="relative w-full min-h-[70vh] flex items-center mb-24 pt-20 border-b border-primary-500/10">
         
-        {/* Profile Header section */}
-        <div className="flex flex-col md:flex-row gap-12 items-center md:items-start mb-24 glass-card p-10 rounded-3xl border border-primary-500/20 max-w-5xl mx-auto relative overflow-hidden">
-            {/* BG glow */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-600/20 rounded-full blur-[80px] pointer-events-none"></div>
-
-            <div className="shrink-0 relative group">
-                <div className="w-48 h-48 rounded-2xl overflow-hidden border-2 border-primary-500/50 shadow-[0_0_30px_rgba(236,72,153,0.3)] relative z-10">
-                    <img src="https://placehold.co/400x400/1e1b4b/FFF?text=MS+Profile" alt="Purushothama M S" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                </div>
-                <div className="absolute -inset-2 bg-gradient-to-r from-primary-500 to-accent-500 rounded-2xl opacity-30 group-hover:opacity-60 blur transition-opacity duration-500"></div>
-            </div>
-
-            <div className="flex-grow z-10 text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-500/10 text-primary-400 rounded-full text-xs font-bold tracking-widest uppercase border border-primary-500/20 mb-4">
-                    <Code2 size={14} /> Full Stack Developer
-                </div>
-                <h1 className="text-4xl md:text-5xl font-bold font-space text-white mb-4 tracking-tight">Purushothama M S</h1>
-                <p className="text-slate-300 text-lg leading-relaxed font-light mb-6">
-                    I am an MSc Computer Science student with a deep passion for creating scalable backend architectures and 
-                    pixel-perfect, engaging user interfaces. My hybrid skill set allows me to bridge the gap between engineering 
-                    logic and visual design excellence.
-                </p>
-                <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-                    <a href="mailto:mspurushothama2011@gmail.com" className="flex items-center gap-2 px-5 py-2.5 glass-card rounded-xl hover:bg-white/10 transition-colors text-sm font-medium border border-white/10">
-                        <Mail size={16} className="text-primary-400" /> Let's Connect
-                    </a>
-                    <a href="/resume.pdf" download="Purushothama_Resume.pdf" className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 text-white rounded-xl transition-colors shadow-lg shadow-primary-500/25 text-sm font-medium">
-                        <Briefcase size={16} /> Download Resume
-                    </a>
-                </div>
-            </div>
+        {/* Large Image Background - Left Side */}
+        <div className="absolute top-0 left-0 w-full md:w-[65%] h-full z-0">
+          <img src="https://placehold.co/1200x800/1e1b4b/FFF?text=MS+Profile" alt="Purushothama M S" className="w-full h-full object-cover object-center" />
+          
+          {/* Gradient Switch - Fading to background color on the right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/0 via-slate-950/80 to-slate-950 hidden md:block"></div>
+          
+          {/* Mobile Gradient Switch - Fading to background color on the bottom */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent md:hidden"></div>
         </div>
+
+        {/* Content Side - Right Side aligned */}
+        <div className="container mx-auto px-6 relative z-10 w-full flex">
+          <div className="w-full md:w-1/2 md:ml-auto pt-64 pb-12 md:py-20 flex flex-col justify-center text-center md:text-left">
+            
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-500/10 text-primary-400 rounded-full text-xs font-bold tracking-widest uppercase border border-primary-500/20 mb-6 w-max mx-auto md:mx-0 shadow-[0_0_15px_rgba(236,72,153,0.15)]">
+                <Code2 size={14} /> Full Stack Developer
+            </div>
+            
+            <h1 className="text-5xl md:text-6xl md:leading-tight font-bold font-space text-white mb-6 tracking-tight drop-shadow-md relative">
+                Purushothama M S
+                <span className="absolute -inset-2 bg-primary-500/20 blur-2xl -z-10 rounded-full"></span>
+            </h1>
+            
+            <p className="text-slate-300 text-lg md:text-xl leading-relaxed font-light mb-10 drop-shadow">
+                I am an MSc Computer Science student with a deep passion for creating scalable backend architectures and 
+                pixel-perfect, engaging user interfaces. My hybrid skill set allows me to bridge the gap between engineering 
+                logic and visual design excellence.
+            </p>
+            
+            <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                <a href="mailto:mspurushothama2011@gmail.com" className="flex items-center gap-2 px-6 py-3 glass-card rounded-xl hover:bg-white/10 transition-colors text-sm font-medium border border-white/10 shadow-lg relative overflow-hidden group">
+                    <span className="absolute inset-0 bg-gradient-to-r from-primary-500/0 via-primary-500/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+                    <Mail size={18} className="text-primary-400" /> Let's Connect
+                </a>
+                <a href="/resume.pdf" download="Purushothama_Resume.pdf" className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 text-white rounded-xl transition-all shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:-translate-y-1 text-sm font-medium">
+                    <Briefcase size={18} /> Download Resume
+                </a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
 
         {/* Experience & Education */}
         <div className="max-w-5xl mx-auto mb-20 grid md:grid-cols-2 gap-12">
