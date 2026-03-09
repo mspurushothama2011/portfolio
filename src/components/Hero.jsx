@@ -2,21 +2,27 @@
 import { useEffect } from 'react';
 import { ArrowRight, Download, Linkedin, Github, Mail } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import useIsMobile from '../hooks/useIsMobile';
 
 const Hero = () => {
-  // Cursor tracking motion values
-  const mouseX = useMotionValue(window.innerWidth / 2);
-  const mouseY = useMotionValue(window.innerHeight / 2);
+  const isMobile = useIsMobile();
+
+  // Cursor tracking motion values (only meaningful on desktop)
+  const mouseX = useMotionValue(typeof window !== 'undefined' ? window.innerWidth / 2 : 0);
+  const mouseY = useMotionValue(typeof window !== 'undefined' ? window.innerHeight / 2 : 0);
 
   // Apply smooth spring physics to the raw mouse coordinates
   const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
   const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
   // Transform coordinates into 3D rotation degrees for Parallax effect
-  const rotateX = useTransform(smoothY, [0, window.innerHeight], [8, -8]);
-  const rotateY = useTransform(smoothX, [0, window.innerWidth], [-8, 8]);
+  const rotateX = useTransform(smoothY, [0, typeof window !== 'undefined' ? window.innerHeight : 800], [8, -8]);
+  const rotateY = useTransform(smoothX, [0, typeof window !== 'undefined' ? window.innerWidth : 1200], [-8, 8]);
 
   useEffect(() => {
+    // Skip mouse tracking on touch devices — no mouse cursor exists
+    if (isMobile) return;
+
     const handleMouseMove = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -24,7 +30,7 @@ const Hero = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isMobile]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,34 +53,36 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-slate-950 text-white pt-24 overflow-hidden perspective-1000">
       
-      {/* 1. Cursor Spotlight Effect */}
-      <motion.div
-        className="fixed top-0 left-0 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-primary-500/10 rounded-full blur-[100px] pointer-events-none z-0"
-        style={{
-          x: smoothX,
-          y: smoothY,
-          translateX: '-50%',
-          translateY: '-50%'
-        }}
-      />
+      {/* 1. Cursor Spotlight Effect — desktop only */}
+      {!isMobile && (
+        <motion.div
+          className="fixed top-0 left-0 w-[40vw] h-[40vw] max-w-[600px] max-h-[600px] bg-primary-500/10 rounded-full blur-[100px] pointer-events-none z-0"
+          style={{
+            x: smoothX,
+            y: smoothY,
+            translateX: '-50%',
+            translateY: '-50%'
+          }}
+        />
+      )}
 
-      {/* 2. Slow Ambient Floating Orbs (Existing) */}
+      {/* 2. Slow Ambient Floating Orbs — reduced blur on mobile */}
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.4, 0.2] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary-600/20 rounded-full blur-[120px] pointer-events-none" 
+        className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary-600/20 rounded-full blur-[60px] md:blur-[120px] pointer-events-none" 
       />
       <motion.div 
         animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.3, 0.1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-accent-600/20 rounded-full blur-[150px] pointer-events-none" 
+        className="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] bg-accent-600/20 rounded-full blur-[60px] md:blur-[150px] pointer-events-none" 
       />
 
       <div className="container mx-auto px-6 relative z-10 text-center flex justify-center">
         
-        {/* 3. Interactive Parallax Container */}
+        {/* 3. Interactive Parallax Container — static on mobile */}
         <motion.div 
-          style={{
+          style={isMobile ? {} : {
             rotateX,
             rotateY,
             transformStyle: "preserve-3d"
@@ -86,11 +94,11 @@ const Hero = () => {
             initial="hidden"
             animate="visible"
             className="space-y-8 glass-card border-white/5 bg-slate-900/10 p-10 md:p-16 rounded-[3rem] shadow-2xl relative"
-            style={{ transform: "translateZ(50px)" }} // Pop out the glass card itself
+            style={isMobile ? {} : { transform: "translateZ(50px)" }}
           >
             
-            {/* Badge - Popped further out */}
-            <motion.div variants={itemVariants} className="flex justify-center" style={{ transform: "translateZ(20px)" }}>
+            {/* Badge */}
+            <motion.div variants={itemVariants} className="flex justify-center" style={isMobile ? {} : { transform: "translateZ(20px)" }}>
               <div className="inline-block px-5 py-2 glass-card border-primary-500/30 text-primary-400 text-sm font-semibold rounded-full shadow-[0_0_15px_rgba(236,72,153,0.15)] relative overflow-hidden group">
                 <span className="relative z-10 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-primary-400 animate-pulse"></span>
@@ -101,7 +109,7 @@ const Hero = () => {
             </motion.div>
             
             {/* Headlines */}
-            <motion.div variants={itemVariants} style={{ transform: "translateZ(40px)" }}>
+            <motion.div variants={itemVariants} style={isMobile ? {} : { transform: "translateZ(40px)" }}>
               <h1 className="text-5xl md:text-7xl font-bold font-space leading-tight mb-6 tracking-tight drop-shadow-xl">
                 Designing the Future, <br className="hidden md:block"/>
                 Building the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">Present</span>
@@ -112,15 +120,15 @@ const Hero = () => {
             </motion.div>
             
             {/* Description */}
-            <motion.p variants={itemVariants} style={{ transform: "translateZ(30px)" }} className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light">
+            <motion.p variants={itemVariants} style={isMobile ? {} : { transform: "translateZ(30px)" }} className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light">
               MSc Computer Science student bridging the gap between Full Stack Engineering and 
               <span className="text-slate-200 font-medium"> UI/UX Design</span>. I craft scalable applications and pixel-perfect interfaces.
             </motion.p>
 
             {/* Buttons */}
-            <motion.div variants={itemVariants} style={{ transform: "translateZ(50px)" }} className="flex flex-wrap gap-6 justify-center pt-4">
+            <motion.div variants={itemVariants} style={isMobile ? {} : { transform: "translateZ(50px)" }} className="flex flex-wrap gap-6 justify-center pt-4">
               <motion.a 
-                whileHover={{ scale: 1.05 }}
+                whileHover={isMobile ? {} : { scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="/projects" 
                 className="px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 text-white font-medium rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-primary-500/25 border border-white/10"
@@ -129,7 +137,7 @@ const Hero = () => {
               </motion.a>
               
               <motion.a 
-                whileHover={{ scale: 1.05 }}
+                whileHover={isMobile ? {} : { scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="/resume.pdf"  
                 download="Purushothama_Resume.pdf"
@@ -140,14 +148,14 @@ const Hero = () => {
             </motion.div>
 
             {/* Social Links */}
-            <motion.div variants={itemVariants} style={{ transform: "translateZ(20px)" }} className="flex items-center justify-center gap-8 pt-12 mt-8 max-w-md mx-auto">
-              <motion.a whileHover={{ y: -5, scale: 1.1 }} href="https://github.com/mspurushothama2011" className="text-slate-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
+            <motion.div variants={itemVariants} style={isMobile ? {} : { transform: "translateZ(20px)" }} className="flex items-center justify-center gap-8 pt-12 mt-8 max-w-md mx-auto">
+              <motion.a whileTap={{ scale: 0.9 }} whileHover={isMobile ? {} : { y: -5, scale: 1.1 }} href="https://github.com/mspurushothama2011" className="text-slate-400 hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">
                 <Github size={28} />
               </motion.a>
-              <motion.a whileHover={{ y: -5, scale: 1.1 }} href="https://www.linkedin.com/in/purushothama-ms" className="text-slate-400 hover:text-primary-400 transition-colors" target="_blank" rel="noopener noreferrer">
+              <motion.a whileTap={{ scale: 0.9 }} whileHover={isMobile ? {} : { y: -5, scale: 1.1 }} href="https://www.linkedin.com/in/purushothama-ms" className="text-slate-400 hover:text-primary-400 transition-colors" target="_blank" rel="noopener noreferrer">
                 <Linkedin size={28} />
               </motion.a>
-              <motion.a whileHover={{ y: -5, scale: 1.1 }} href="mailto:mspurushothama2011@gmail.com" className="text-slate-400 hover:text-accent-400 transition-colors">
+              <motion.a whileTap={{ scale: 0.9 }} whileHover={isMobile ? {} : { y: -5, scale: 1.1 }} href="mailto:mspurushothama2011@gmail.com" className="text-slate-400 hover:text-accent-400 transition-colors">
                 <Mail size={28} />
               </motion.a>
             </motion.div>
@@ -159,3 +167,4 @@ const Hero = () => {
 };
 
 export default Hero;
+

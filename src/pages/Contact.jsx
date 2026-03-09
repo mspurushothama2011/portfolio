@@ -37,8 +37,8 @@ const Contact = () => {
             className="page-transition min-h-screen pt-32 pb-20 relative overflow-hidden"
         >
             {/* Background Decor */}
-            <div className="absolute top-1/4 right-[-10%] w-[500px] h-[500px] bg-primary-600/10 rounded-full blur-[150px] pointer-events-none"></div>
-            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-accent-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute top-1/4 right-[-10%] w-[500px] h-[500px] bg-primary-600/10 rounded-full blur-[60px] md:blur-[150px] pointer-events-none"></div>
+            <div className="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] bg-accent-600/10 rounded-full blur-[60px] md:blur-[120px] pointer-events-none"></div>
 
             <div className="container mx-auto px-6 relative z-10 max-w-5xl">
                 <div className="text-center mb-16">

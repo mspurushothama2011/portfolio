@@ -1,11 +1,14 @@
 // src/components/ProjectCard.jsx
 import { Github, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
+import useIsMobile from '../hooks/useIsMobile';
 
 const ProjectCard = ({ project, onCardClick }) => {
+  const isMobile = useIsMobile();
   return (
     <motion.div 
-      whileHover={{ y: -10 }}
+      whileHover={isMobile ? {} : { y: -10 }}
+      whileTap={isMobile ? { scale: 0.97 } : {}}
       onClick={onCardClick}
       className="glass-card rounded-3xl overflow-hidden group border border-white/10 h-full flex flex-col relative cursor-pointer"
     >
