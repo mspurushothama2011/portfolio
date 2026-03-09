@@ -2,6 +2,7 @@
 import { PROJECTS } from '../data/projects';
 import ProjectCard from './ProjectCard';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const PortfolioSection = () => {
   const navigate = useNavigate();
@@ -22,32 +23,57 @@ const PortfolioSection = () => {
       window.open(project.liveLink, '_blank');
     }
   };
-  
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 100, damping: 20 } }
+  };
 
   return (
-    <section className="py-20 bg-slate-50 dark:bg-slate-900" id="projects">
-      <div className="container mx-auto px-4">
+    <section className="py-24 relative" id="projects">
+      <div className="container mx-auto px-6 relative z-10">
         
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          className="text-center mb-16"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border-accent-500/30 text-accent-400 text-sm font-semibold mb-6 shadow-[0_0_20px_rgba(45,212,191,0.1)]">
+            <span className="w-2 h-2 rounded-full bg-accent-400 animate-pulse"></span>
+            Recent Work
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold font-space text-white mb-6 tracking-tight">
             Featured Projects
           </h2>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            A selection of my work in Full Stack Development and Graphic Design.
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto font-light">
+            A curated selection of my work spanning Full Stack Development, UI/UX, and Graphic Design. Each project reflects a commitment to quality and scalable architecture.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {PROJECTS.map((project) => (
-            <div 
+            <motion.div 
+              variants={itemVariants}
               key={project.id} 
               onClick={() => handleProjectClick(project)}
-              className="cursor-pointer"
+              className="cursor-pointer h-full"
             >
               <ProjectCard project={project} />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>
