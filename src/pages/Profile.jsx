@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Briefcase, GraduationCap, Code2, Heart } from 'lucide-react';
 import Skills from '../components/Skills';
 import Certifications from '../components/Certifications';
+import profileImage from '../assets/profile.jpg';
 
 const Profile = () => {
   return (
@@ -18,7 +19,7 @@ const Profile = () => {
         
         {/* Large Image Background - Left Side */}
         <div className="absolute top-0 left-0 w-full md:w-[65%] h-full z-0">
-          <img src="https://placehold.co/1200x800/1e1b4b/FFF?text=MS+Profile" alt="Purushothama M S" className="w-full h-full object-cover object-center" />
+          <img src={profileImage} alt="Purushothama M S" className="w-full h-full object-cover object-center" />
           
           {/* Gradient Switch - Fading to background color on the right */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/0 via-slate-950/80 to-slate-950 hidden md:block"></div>
