@@ -7,7 +7,10 @@ import { motion } from 'framer-motion';
 const PortfolioSection = () => {
   const navigate = useNavigate();
 
-  const handleProjectClick = (project) => {
+  const handleProjectClick = (e, project) => {
+    // If the user clicked on an anchor tag (like the Github/Live links), ignore this wrapper navigation
+    if (e.target.closest('a')) return;
+
     // 1. If it is the NVC Project
     if (project.title.includes("NVC")) {
       // Send "nvc" as the section type
@@ -67,7 +70,7 @@ const PortfolioSection = () => {
             <motion.div 
               variants={itemVariants}
               key={project.id} 
-              onClick={() => handleProjectClick(project)}
+              onClick={(e) => handleProjectClick(e, project)}
               className="cursor-pointer h-full"
             >
               <ProjectCard project={project} />
