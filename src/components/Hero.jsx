@@ -121,7 +121,7 @@ const Hero = () => {
             
             {/* Description */}
             <motion.p variants={itemVariants} style={isMobile ? {} : { transform: "translateZ(30px)" }} className="text-slate-400 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto font-light">
-              MSc Computer Science student bridging the gap between Full Stack Engineering and 
+              MSc Computer Science student bridging the gap between<span className="text-slate-200 font-medium"> Full Stack Engineering</span> and 
               <span className="text-slate-200 font-medium"> UI/UX Design</span>. I craft scalable applications and pixel-perfect interfaces.
             </motion.p>
 
@@ -167,4 +167,4 @@ const Hero = () => {
 };
 
 export default Hero;
-
+

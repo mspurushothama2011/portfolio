@@ -2,6 +2,7 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Navbar';
+import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import ProjectsPage from './pages/ProjectsPage';
@@ -14,18 +15,22 @@ const AnimatedRoutes = () => {
   const location = useLocation();
   
   return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/certifications" element={<CertificationsPage />} />
-        <Route path="/gallery" element={<GalleryPage />} />
-      </Routes>
-    </AnimatePresence>
+    <>
+      <ScrollToTop />
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/certifications" element={<CertificationsPage />} />
+          <Route path="/gallery" element={<GalleryPage />} />
+        </Routes>
+      </AnimatePresence>
+    </>
   );
 };
+
 
 function App() {
   return (

@@ -7,19 +7,19 @@ const Skills = () => {
     {
       title: "Technical Stack",
       icon: <Code2 className="w-8 h-8 text-primary-400 group-hover:scale-110 transition-transform duration-500" />,
-      skills: ["Python", "React (Vite)", "FastAPI", "Flask", "MongoDB", "MySQL", "Java", "JavaScript"],
+      skills: ["Python", "React (Vite)", "FastAPI", "Flask", "MongoDB", "MySQL", "Java", "JavaScript", "Flutter", "Dart"],
       color: "from-primary-500 to-primary-600"
     },
     {
       title: "Design & Tools",
       icon: <Palette className="w-8 h-8 text-purple-400 group-hover:scale-110 transition-transform duration-500" />,
-      skills: ["Adobe Photoshop", "Adobe Illustrator", "Canva", "Figma", "Git/GitHub", "Netlify", "Render"],
+      skills: ["Adobe Photoshop", "Adobe Illustrator", "Canva", "Figma", "Git/GitHub", "Netlify", "Render", "Corel Draw"],
       color: "from-purple-500 to-purple-600"
     },
     {
       title: "Core Competencies",
       icon: <Brain className="w-8 h-8 text-accent-400 group-hover:scale-110 transition-transform duration-500" />,
-      skills: ["Leadership", "Problem Solving", "Teamwork", "Adaptability", "Communication"],
+      skills: ["Leadership", "Problem Solving", "Teamwork", "Adaptability", "Communication", "Time Management", "Critical Thinking"],
       color: "from-accent-500 to-accent-600"
     }
   ];
