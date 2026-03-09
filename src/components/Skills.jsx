@@ -7,7 +7,7 @@ const Skills = () => {
     {
       title: "Technical Stack",
       icon: <Code2 className="w-8 h-8 text-primary-400 group-hover:scale-110 transition-transform duration-500" />,
-      skills: ["Python", "React (Vite)", "FastAPI", "Flask", "MongoDB", "MySQL", "Java", "JavaScript", "Flutter", "Dart"],
+      skills: ["Python", "React (Vite)", "HTML", "CSS", "Tailwind CSS", "FastAPI", "Flask", "MongoDB", "MySQL", "Java", "JavaScript", "Flutter", "Dart"],
       color: "from-primary-500 to-primary-600"
     },
     {
