@@ -1,8 +1,34 @@
 // src/pages/Contact.jsx
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Github, Linkedin, X } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const form = useRef();
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('');
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus('');
+
+    // PLEASE REPLACE THESE PLACEHOLDERS WITH YOUR ACTUAL EMAILJS KEYS:
+    // emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+    
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', form.current, 'YOUR_PUBLIC_KEY')
+      .then((result) => {
+          setLoading(false);
+          setStatus('success');
+          e.target.reset(); // clear form
+      }, (error) => {
+          setLoading(false);
+          setStatus('error');
+          console.log(error.text);
+      });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -63,41 +89,28 @@ const Contact = () => {
 
             {/* Form Side */}
             <div className="md:col-span-3">
-                <form className="glass-card p-8 md:p-10 rounded-3xl border border-white/10" onSubmit={(e) => e.preventDefault()}>
-                    <h2 className="text-2xl font-bold font-space text-white mb-6">Send a Message</h2>
-                    
-                    {/* Backend Unavailable Warning Banner */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-8 p-4 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-4"
-                    >
-                        <div className="bg-red-500/20 p-2 rounded-lg text-red-400 shrink-0">
-                            <X size={20} />
-                        </div>
-                        <div>
-                            <h4 className="text-red-400 font-bold text-sm mb-1 uppercase tracking-wider">System Notice</h4>
-                            <p className="text-red-300/80 text-sm font-light">The messaging backend is currently unavailable. Please reach out to me directly via the email address listed on the left instead.</p>
-                        </div>
-                    </motion.div>
+                <form ref={form} onSubmit={sendEmail} className="glass-card p-8 md:p-10 rounded-3xl border border-white/10 relative">
+                    <h2 className="text-2xl font-bold font-space text-white mb-8">Send a Message</h2>
                     
                     <div className="grid md:grid-cols-2 gap-6 mb-6">
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-400 pl-1">Your Name</label>
                             <input 
-                                disabled
+                                required
                                 type="text" 
+                                name="user_name"
                                 placeholder="John Doe"
-                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light opacity-50 cursor-not-allowed"
+                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light"
                             />
                         </div>
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-slate-400 pl-1">Your Email</label>
                             <input 
-                                disabled
+                                required
                                 type="email" 
+                                name="user_email"
                                 placeholder="john@example.com"
-                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light opacity-50 cursor-not-allowed"
+                                className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light"
                             />
                         </div>
                     </div>
@@ -105,30 +118,48 @@ const Contact = () => {
                     <div className="space-y-2 mb-6">
                         <label className="text-sm font-medium text-slate-400 pl-1">Subject</label>
                         <input 
-                            disabled
+                            required
                             type="text" 
+                            name="subject"
                             placeholder="How can I help you?"
-                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light opacity-50 cursor-not-allowed"
+                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light"
                         />
                     </div>
 
                     <div className="space-y-2 mb-8">
                         <label className="text-sm font-medium text-slate-400 pl-1">Message</label>
                         <textarea 
-                            disabled
+                            required
+                            name="message"
                             rows="5"
                             placeholder="Tell me about your project..."
-                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light resize-none opacity-50 cursor-not-allowed"
+                            className="w-full bg-slate-900/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary-500 focus:ring-1 focus:ring-primary-500 transition-all font-light resize-none"
                         ></textarea>
                     </div>
 
                     <button 
-                        disabled
-                        type="button"
-                        className="w-full bg-slate-800 text-slate-500 font-medium rounded-xl px-6 py-4 flex items-center justify-center gap-2 transition-all border border-slate-700 opacity-70 cursor-not-allowed"
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 text-white font-medium rounded-xl px-6 py-4 flex items-center justify-center gap-2 transition-all shadow-lg shadow-primary-500/25 active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                        Backend Unavailable
+                        {loading ? (
+                            <><Loader2 className="animate-spin" size={18} /> Sending...</>
+                        ) : (
+                            <>Send Message <Send size={18} /></>
+                        )}
                     </button>
+
+                    {/* Status Messages */}
+                    {status === 'success' && (
+                        <p className="text-accent-400 text-sm mt-4 text-center bg-accent-500/10 py-2 rounded-lg border border-accent-500/20">
+                            Message sent successfully! I'll get back to you soon.
+                        </p>
+                    )}
+                    {status === 'error' && (
+                        <p className="text-red-400 text-sm mt-4 text-center bg-red-500/10 py-2 rounded-lg border border-red-500/20">
+                            Failed to send message. Please check your console or email me directly.
+                        </p>
+                    )}
                 </form>
             </div>
 
