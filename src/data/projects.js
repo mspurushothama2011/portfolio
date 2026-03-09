@@ -43,7 +43,7 @@ export const PROJECTS = [
     description: "A modern full-stack application using OpenAI API...",
     tags: ["React (Vite)", "FastAPI", "MongoDB", "OpenAI API"],
     githubLink: "https://github.com/mspurushothama2011",
-    liveLink: "#",
+    liveLink: "https://meeting-insights-frontend.vercel.app/login",
     image: "https://placehold.co/600x400/1e293b/FFF?text=IMIP+Project"
   },
   {
