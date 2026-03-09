@@ -1,6 +1,6 @@
 // src/pages/Contact.jsx
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Send, Github, Linkedin } from 'lucide-react';
+import { Mail, MapPin, Send, Github, Linkedin, X } from 'lucide-react';
 
 const Contact = () => {
   return (
