@@ -13,7 +13,7 @@ const Certifications = () => {
       issuer: "Oracle",
       year: "2025",
       color: "border-primary-500/30 text-primary-400 bg-primary-500/10",
-      image: "https://placehold.co/800x600/1e1b4b/FFF?text=Oracle+Certificate",
+      pdf: "/certificates/oracle.pdf",
       description: "Gained foundational knowledge of Artificial Intelligence workloads, Deep Learning, and Machine Learning on Oracle Cloud Infrastructure (OCI).",
       skills: ["OCI", "Machine Learning", "AI Workloads"]
     },
@@ -23,37 +23,57 @@ const Certifications = () => {
       issuer: "HP",
       year: "2025",
       color: "border-accent-500/30 text-accent-400 bg-accent-500/10",
-      image: "https://placehold.co/800x600/1e1b4b/FFF?text=HP+Certificate",
+      pdf: "/certificates/hp.pdf",
       description: "Mastered data analysis techniques, statistical modeling, and data visualization strategies to drive business insights.",
       skills: ["Data Analysis", "Statistics", "Visualization"]
     },
     {
       id: 3,
+      title: "UiPath RPA Developer",
+      issuer: "UiPath",
+      year: "2024",
+      color: "border-orange-500/30 text-orange-400 bg-orange-500/10",
+      pdf: "/certificates/24mscs14 UI Path.pdf",
+      description: "Completed hands-on training in Robotic Process Automation (RPA) using UiPath, covering workflow automation, bots, and enterprise process design.",
+      skills: ["RPA", "UiPath", "Automation", "Bots"]
+    },
+    {
+      id: 4,
+      title: "Research Paper — KJC",
+      issuer: "Published Research",
+      year: "2024",
+      color: "border-emerald-500/30 text-emerald-400 bg-emerald-500/10",
+      pdf: "/certificates/SRS Research Paper KJC.pdf",
+      description: "Authored and published a research paper exploring innovative solutions in software design and systems. Contributed original ideas to academic discourse.",
+      skills: ["Research", "Technical Writing", "Analysis"]
+    },
+    {
+      id: 5,
       title: "Intro to Artificial Intelligence",
       issuer: "Infosys",
       year: "2025",
       color: "border-purple-500/30 text-purple-400 bg-purple-500/10",
-      image: "https://placehold.co/800x600/1e1b4b/FFF?text=Infosys+AI+Certificate",
+      pdf: "/certificates/infosys_ai.pdf",
       description: "Comprehensive introduction to AI concepts, including neural networks, natural language processing, and ethical AI practices.",
       skills: ["AI Concepts", "NLP", "Ethics"]
     },
     {
-      id: 4,
+      id: 6,
       title: "Programming using Java",
       issuer: "Infosys",
       year: "2024",
       color: "border-cyan-500/30 text-cyan-400 bg-cyan-500/10",
-      image: "https://placehold.co/800x600/1e1b4b/FFF?text=Java+Certificate",
+      pdf: "/certificates/java.pdf",
       description: "Deep dive into Object-Oriented Programming (OOP), exception handling, and multi-threading using Java.",
       skills: ["Java", "OOP", "Data Structures"]
     },
     {
-      id: 5,
+      id: 7,
       title: "Kabaddi Team Captain (Winner)",
       issuer: "Intercollegiate Competition",
       year: "2020",
       color: "border-yellow-500/30 text-yellow-400 bg-yellow-500/10",
-      image: "https://placehold.co/800x600/1e1b4b/FFF?text=Kabaddi+Award",
+      pdf: "/certificates/kabaddi.pdf",
       description: "Led the team to victory at the intercollegiate level. Developed strong leadership, strategic planning, and team management skills under pressure.",
       skills: ["Leadership", "Strategy", "Teamwork"]
     }
@@ -151,14 +171,28 @@ const Certifications = () => {
               </button>
 
               <div className="grid md:grid-cols-5 h-full">
-                {/* Left: Image (Spans 2 cols) */}
-                <div className="md:col-span-2 h-64 md:h-full min-h-[300px] bg-slate-900/50 flex items-center justify-center p-8 border-r border-white/5 relative overflow-hidden">
-                  <div className={`absolute inset-0 opacity-20 ${selectedCert.color.split(' ')[0].replace('border-', 'bg-')}`}></div>
-                  <img 
-                    src={selectedCert.image} 
-                    alt={selectedCert.title} 
-                    className="max-h-full max-w-full object-contain rounded-xl shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/10 relative z-10"
-                  />
+                {/* Left: PDF Viewer (Spans 2 cols) */}
+                <div className="md:col-span-2 h-72 md:h-full min-h-[350px] bg-slate-900/50 flex flex-col border-r border-white/5 relative overflow-hidden">
+                  <div className={`absolute inset-0 opacity-10 ${selectedCert.color.split(' ')[0].replace('border-', 'bg-')}`}></div>
+                  {selectedCert.pdf ? (
+                    <>
+                      <iframe
+                        src={`${selectedCert.pdf}#toolbar=0&navpanes=0&view=FitH`}
+                        title={selectedCert.title}
+                        className="w-full flex-1 relative z-10 border-0"
+                      />
+                      <a
+                        href={selectedCert.pdf}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative z-10 text-center text-xs text-primary-400 hover:text-primary-300 py-2 border-t border-white/10 bg-slate-900/60 transition-colors shrink-0"
+                      >
+                        ↗ Open in full screen
+                      </a>
+                    </>
+                  ) : (
+                    <div className="flex-1 flex items-center justify-center text-slate-500 text-sm">No preview available</div>
+                  )}
                 </div>
 
                 {/* Right: Info (Spans 3 cols) */}
