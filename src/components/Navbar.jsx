@@ -48,32 +48,33 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-6 lg:gap-8">
+          <div className="hidden md:flex items-center gap-2 lg:gap-4 bg-slate-900/50 backdrop-blur-md p-1.5 rounded-full border border-white/5">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.href || (location.pathname.startsWith(link.href) && link.href !== '/');
               return (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-sm font-medium transition-all relative px-2 py-1 ${
+                  className={`text-sm font-medium transition-all relative px-4 py-2 rounded-full interactive ${
                     isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  {link.name}
+                  <span className="relative z-10">{link.name}</span>
                   {isActive && (
                     <motion.span
                       layoutId="activeNav"
-                      className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary-500 to-accent-500 rounded-full"
-                      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      className="absolute inset-0 bg-gradient-to-r from-primary-500/80 to-accent-500/80 rounded-full z-0 shadow-lg shadow-primary-500/20"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
                 </Link>
               );
             })}
+            <div className="w-px h-6 bg-white/10 mx-2"></div>
             <a 
               href="/resume.pdf"
               download="Purushothama_Resume.pdf" 
-              className="px-6 py-2.5 rounded-full text-sm font-medium text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all shadow-[0_0_15px_rgba(236,72,153,0.15)] hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:-translate-y-0.5"
+              className="px-6 py-2 rounded-full text-sm font-medium text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:-translate-y-0.5 interactive"
             >
               Resume
             </a>

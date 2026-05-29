@@ -10,6 +10,9 @@ import Contact from './pages/Contact';
 import CertificationsPage from './pages/CertificationsPage';
 import GalleryPage from './components/GalleryPage';
 
+import CustomCursor from './components/CustomCursor';
+import PageTransition from './components/PageTransition';
+
 // Inner component to use location hook
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -17,14 +20,15 @@ const AnimatedRoutes = () => {
   return (
     <>
       <ScrollToTop />
+      <CustomCursor />
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
-          <Route path="/" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/projects" element={<ProjectsPage />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/certifications" element={<CertificationsPage />} />
-          <Route path="/gallery" element={<GalleryPage />} />
+          <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+          <Route path="/profile" element={<PageTransition><Profile /></PageTransition>} />
+          <Route path="/projects" element={<PageTransition><ProjectsPage /></PageTransition>} />
+          <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+          <Route path="/certifications" element={<PageTransition><CertificationsPage /></PageTransition>} />
+          <Route path="/gallery" element={<PageTransition><GalleryPage /></PageTransition>} />
         </Routes>
       </AnimatePresence>
     </>

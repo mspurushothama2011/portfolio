@@ -110,13 +110,30 @@ const Hero = () => {
             
             {/* Headlines */}
             <motion.div variants={itemVariants} style={isMobile ? {} : { transform: "translateZ(40px)" }}>
-              <h1 className="text-5xl md:text-7xl font-bold font-space leading-tight mb-6 tracking-tight drop-shadow-xl">
-                Designing the Future, <br className="hidden md:block"/>
-                Building the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">Present</span>
+              <h1 className="text-5xl md:text-7xl font-bold font-space leading-tight mb-6 tracking-tight drop-shadow-xl overflow-hidden">
+                <motion.div
+                  initial={{ y: '100%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                >
+                  Designing the Future,
+                </motion.div>
+                <motion.div
+                  initial={{ y: '100%' }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+                >
+                  Building the <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400">Present</span>
+                </motion.div>
               </h1>
-              <h2 className="text-2xl md:text-3xl text-slate-300 font-light">
+              <motion.h2 
+                initial={{ opacity: 0, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)' }}
+                transition={{ duration: 1, delay: 0.6 }}
+                className="text-2xl md:text-3xl text-slate-300 font-light"
+              >
                 Hi, I'm <span className="font-semibold text-white">Purushothama M S</span>
-              </h2>
+              </motion.h2>
             </motion.div>
             
             {/* Description */}
@@ -131,7 +148,7 @@ const Hero = () => {
                 whileHover={isMobile ? {} : { scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 href="/projects" 
-                className="px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 text-white font-medium rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-primary-500/25 border border-white/10"
+                className="interactive px-8 py-4 bg-gradient-to-r from-primary-600 to-accent-600 hover:from-primary-500 hover:to-accent-500 text-white font-medium rounded-xl flex items-center gap-2 transition-all shadow-lg shadow-primary-500/25 border border-white/10"
               >
                 View My Work <ArrowRight size={20} />
               </motion.a>
@@ -141,7 +158,7 @@ const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 href="/resume.pdf"  
                 download="Purushothama_Resume.pdf"
-                className="px-8 py-4 glass-card hover:bg-white/10 text-white font-medium rounded-xl flex items-center gap-2 transition-all"
+                className="interactive px-8 py-4 glass-card hover:bg-white/10 text-white font-medium rounded-xl flex items-center gap-2 transition-all"
               >
                 Download CV <Download size={20} />
               </motion.a>

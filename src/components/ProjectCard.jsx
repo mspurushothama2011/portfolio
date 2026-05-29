@@ -1,16 +1,57 @@
-// src/components/ProjectCard.jsx
+import { useRef } from 'react';
 import { Github, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import useIsMobile from '../hooks/useIsMobile';
 
 const ProjectCard = ({ project, onCardClick }) => {
   const isMobile = useIsMobile();
+  const ref = useRef(null);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x, { stiffness: 300, damping: 20 });
+  const mouseYSpring = useSpring(y, { stiffness: 300, damping: 20 });
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
+
+  const handleMouseMove = (e) => {
+    if (isMobile || !ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    
+    const width = rect.width;
+    const height = rect.height;
+    
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
-    <motion.div 
-      whileHover={isMobile ? {} : { y: -10 }}
-      whileTap={isMobile ? { scale: 0.97 } : {}}
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX: isMobile ? 0 : rotateX,
+        rotateY: isMobile ? 0 : rotateY,
+        transformStyle: "preserve-3d",
+      }}
+      whileHover={isMobile ? {} : { scale: 1.02 }}
+      whileTap={isMobile ? { scale: 0.97 } : { scale: 0.95 }}
       onClick={onCardClick}
-      className="glass-card rounded-3xl overflow-hidden group border border-white/10 h-full flex flex-col relative cursor-pointer"
+      className="interactive glass-card rounded-3xl overflow-hidden group border border-white/10 h-full flex flex-col relative cursor-pointer"
     >
       {/* Project Image */}
       <div className="relative overflow-hidden h-56 m-2 rounded-2xl">
